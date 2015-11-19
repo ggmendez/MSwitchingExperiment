@@ -1,8 +1,10 @@
-<%@page import="classes.OpenCVLoader"%>
+<%@page import="loader.OpenCVLoader;"%>
+
+
 <!DOCTYPE html>
 <html style="overflow-x: no-display;">
     <head>
-        <title>iVoLVR: Interactive Visual Language for Visual Reasoning</title>
+        <title>Experiment Application</title>
         <meta charset="UTF8">
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -10,9 +12,7 @@
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
-
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-
 
         <link rel="stylesheet" type="text/css" href="./css/main.css" />
         <link rel="stylesheet" type="text/css" href="./css/kickstart.css" media="all" />
@@ -137,8 +137,9 @@
         <script type="text/javascript" src="./js/jquery.drag.resize.js"></script>
 
         <script type="text/javascript" src="./js/toPathTransformations.js"></script>
-
-        <script type="text/javascript" src="./js/LevenshteinDistance/lib/levenshtein.js"></script>
+                
+        <script type="text/javascript" src="./js/dollar.js"></script>
+        
 
         <% new OpenCVLoader();%>
 
@@ -1640,7 +1641,7 @@
              visualValue.animateBirth(false, null, null, false);*/
 
 
-
+             var gestureRecognizer = new DollarRecognizer();
 
 
 

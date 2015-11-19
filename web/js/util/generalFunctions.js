@@ -2557,7 +2557,7 @@ function importImageToCanvas(options) {
 
         var d = new Date();
         var df = d.getMonth() + '_' + d.getDate() + '_' + d.getYear() + '_' + (d.getHours() + 1) + '_' + d.getMinutes() + '_' + d.getSeconds() + '_' + d.getMilliseconds();
-        
+
         var df = df + "___" + Math.floor((Math.random() * 100) + 1);
 
         imgInstance.id = options.id || df;
@@ -5041,7 +5041,7 @@ function pathToPolyline2(svgPathPoints) {
 
 }
 
-function pathToPolyline(svgPathPoints, doNotCheckForReversion) {
+function pathToPolyline(svgPathPoints, doNotCheckForReversion, capitalProperties) {
 
 //    if (LOG) {
 //    console.log("svgPathPoints:");
@@ -5054,16 +5054,30 @@ function pathToPolyline(svgPathPoints, doNotCheckForReversion) {
 
     x = svgPathPoints[0][1];
     y = svgPathPoints[0][2];
-    polyline.push({x: x, y: y});
 
+    if (capitalProperties) {
+        polyline.push({X: x, Y: y});
+    } else {
+        polyline.push({x: x, y: y});
+    }
+    
     for (i = 1; i < n - 2; i++) {
         x = svgPathPoints[i][3];
         y = svgPathPoints[i][4];
-        polyline.push({x: x, y: y});
+        if (capitalProperties) {
+            polyline.push({X: x, Y: y});
+        } else {
+            polyline.push({x: x, y: y});
+        }
     }
     x = svgPathPoints[n - 1][1];
     y = svgPathPoints[n - 1][2];
-    polyline.push({x: x, y: y});
+    if (capitalProperties) {
+        polyline.push({X: x, Y: y});
+    } else {
+        polyline.push({x: x, y: y});
+    }
+
 
     if (!doNotCheckForReversion) {// The points in the curve should always been indicated from left to rigth
         if (polyline[0].x > polyline[polyline.length - 1].x) {
@@ -6078,7 +6092,7 @@ function getDateFormats() {
         dateFormats = new Array();
 
         dateFormats.push('MMM Do');
-        
+
         dateFormats.push('DD.MMM.YYYY');
         dateFormats.push('DD.MMM.YYYY / HH:mm');
 
@@ -6430,10 +6444,10 @@ function updateConnectorsPositions(object) {
     }
 
     if (object.inConnectors) {
-        
+
 //        console.log("object.inConnectors:");
 //        console.log(object.inConnectors);
-        
+
         object.inConnectors.forEach(function (inConnector) {
             if (!inConnector.group) {
                 inConnector.set({'x2': connectionPoint.x, 'y2': connectionPoint.y});
@@ -8122,7 +8136,7 @@ function canvasDropFunction(ev, ui) {
         } else if (id === "numberGenerator") {
 
             addNumberGenerator({left: x, top: y});
-            
+
         } else if (id === "rangeGenerator") {
 
             addRange({left: x, top: y});

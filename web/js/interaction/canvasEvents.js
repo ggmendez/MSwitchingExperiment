@@ -139,17 +139,30 @@ function canvasSelectionCreated(option) {
 }
 
 function canvasPathCreated(options) {
+    
+    var drawnPath = options.path;
+    var path = drawnPath.path;
+    var polyline = pathToPolyline(path, true, true);
+        
+    console.log("polyline:");
+    console.log(polyline);
+
+    var result = gestureRecognizer.Recognize(polyline, true);
+    
+    alertify.error("Result: " + result.Name.toUpperCase() + " (" + Math.round(result.Score, 2) + ").");
+    
+    
 
 
-    if (LOG)
+    /*if (LOG)
         console.log("options:");
     if (LOG)
-        console.log(options);
+        console.log(options);*/
 
 
     if (canvas.isPathMarkDrawingMode) {
 
-        var drawnPath = options.path;
+        
 
         var minimunPathSide = 5;
 
