@@ -147,7 +147,8 @@ function canvasPathCreated(options) {
     console.log("polyline:");
     console.log(polyline);
 
-    var result = gestureRecognizer.Recognize(polyline, true);
+    var useProtractor = false;
+    var result = gestureRecognizer.Recognize(polyline, useProtractor);
     
     alertify.error("Result: " + result.Name.toUpperCase() + " (" + Math.round(result.Score, 2) + ").");
     
@@ -1659,6 +1660,7 @@ function bindCanvasDefaultEvents() {
         },
         'mouse:move': function (option) {
             canvasMouseMove(option);
+            wacomMouseMoving(option);
         },
         'selection:cleared': function (option) {
             canvasSelectionCleared(option);

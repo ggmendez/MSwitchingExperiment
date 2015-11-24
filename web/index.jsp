@@ -53,10 +53,14 @@
 
         <script type="text/javascript" src="./js/util/generalFunctions.js"></script>
         <script type="text/javascript" src="./js/project/Project.js"></script>
+
         <script type="text/javascript" src="./js/interaction/canvasEvents.js"></script>
+        <script type="text/javascript" src="./js/interaction/wacomEvents.js"></script>
+
         <script type="text/javascript" src="./js/interaction/objectsEvents.js"></script>
         <script type="text/javascript" src="./js/interaction/widgetsEvents.js"></script>
         <script type="text/javascript" src="./js/interaction/blobsCounter.js"></script>
+
         <script type="text/javascript" src="./js/hammer.js/hammer.js"></script>
         <script type="text/javascript" src="./js/jsts/javascript.util.js"></script>
         <script type="text/javascript" src="./js/jsts/jsts.js"></script>        
@@ -137,9 +141,9 @@
         <script type="text/javascript" src="./js/jquery.drag.resize.js"></script>
 
         <script type="text/javascript" src="./js/toPathTransformations.js"></script>
-                
+
         <script type="text/javascript" src="./js/dollar.js"></script>
-        
+
 
         <% new OpenCVLoader();%>
 
@@ -147,6 +151,11 @@
 
     <!--<body onresize="adjustCanvasDimensions();" onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">-->
     <body oncontextmenu="return false;" onresize="adjustCanvasDimensions();" onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
+
+
+
+
+
 
         <!--------------------->
         <!-- HORIZONTAL MENU -->
@@ -156,8 +165,6 @@
             <!--------------->
             <!-- IMPORTING -->
             <!--------------->
-
-
 
             <li><a href="javascript:void(0);" onclick="onLoad();"><i class="icon-picture fa-2x"></i></a></li>
             <li> <input type="file" accept=".jpeg, .png, .jpg"  id="imageFileInput" name="someFile" onchange="handleImageFiles(this.files)" style="visibility:hidden;position:absolute;top:-50;left:-50"/></li>
@@ -508,6 +515,10 @@
 
             </div>
 
+            <object id="wtPlugin" type="application/x-wacomtabletplugin" WIDTH=1 HEIGHT=1 style="position:absolute; left:100px; top:100px">
+                <!-- <param name="onload" value="pluginLoaded" /> -->
+            </object>
+
         </div><!-- END GRID -->
 
 
@@ -530,18 +541,6 @@
 
 
 
-
-
-
-
-
-
-            // WACOM plugin
-//            var plugin = document.getElementById('wtPlugin');
-//            if (LOG)
-//                console.log("plugin:");
-//            if (LOG)
-//                console.log(plugin);
 
             var width = $('#mainContainer').width();
             var height = $(document).height() - $('#theMenu').height() - 5;
@@ -725,42 +724,42 @@
 
 
             });
-            
+
             /*
-            
-            // ###################################################### //
-            // ###################### PINCHING ###################### //
-            // ###################################################### //
+             
+             // ###################################################### //
+             // ###################### PINCHING ###################### //
+             // ###################################################### //
+             
+             manager.on("pinchstart", function (ev) {
+             if (!canvas.getActiveObject() && !canvas.getActiveGroup()) {
+             canvas.zoomBeforePanning = canvas.getZoom();
+             }
+             });
+             manager.on("pinchmove", function (ev) {
+             
+             
+             console.log("%cpinchmove", "background: aqua");
+             
+             console.log(ev);
+             
+             
+             
+             
+             if (!canvas.getActiveObject() && !canvas.getActiveGroup()) {
+             var center = new fabric.Point(ev.center.x, ev.center.y);
+             canvas.zoomToPoint(center, canvas.zoomBeforePanning * ev.scale);
+             canvas.renderAll();
+             }
+             });
+             manager.on("pinchend", function (ev) {
+             
+             });*/
 
-            manager.on("pinchstart", function (ev) {
-                if (!canvas.getActiveObject() && !canvas.getActiveGroup()) {
-                    canvas.zoomBeforePanning = canvas.getZoom();
-                }
-            });
-            manager.on("pinchmove", function (ev) {
-
-
-                console.log("%cpinchmove", "background: aqua");
-
-                console.log(ev);
 
 
 
 
-                if (!canvas.getActiveObject() && !canvas.getActiveGroup()) {
-                    var center = new fabric.Point(ev.center.x, ev.center.y);
-                    canvas.zoomToPoint(center, canvas.zoomBeforePanning * ev.scale);
-                    canvas.renderAll();
-                }
-            });
-            manager.on("pinchend", function (ev) {
-
-            });*/
-            
-            
-            
-            
-            
             canvas.allowTouchScrolling = false;
             var lastCopiedObject = null;
             bindCanvasDefaultEvents();
@@ -1641,7 +1640,7 @@
              visualValue.animateBirth(false, null, null, false);*/
 
 
-             var gestureRecognizer = new DollarRecognizer();
+            var gestureRecognizer = new DollarRecognizer();
 
 
 

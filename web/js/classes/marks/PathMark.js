@@ -15,8 +15,8 @@ PathMark = fabric.util.createClass(fabric.Path, {
         }
         options.values.fill = createColorValue(new fabric.Color(options.fill));
         options.values.shape = createShapeValue(PATH_MARK, path);
-        
-        
+
+
 
 
         this.callSuper('initialize', path, options);
@@ -79,7 +79,7 @@ PathMark = fabric.util.createClass(fabric.Path, {
 
         this.specificProperties.push({attribute: "xCollection", readable: true, writable: true, types: ['number'], updatesTo: ['area'], dataTypeProposition: 'isNumericData'});
         this.specificProperties.push({attribute: "yCollection", readable: true, writable: true, types: ['number'], updatesTo: ['area'], dataTypeProposition: 'isNumericData'});
-        
+
         this.specificProperties.push({attribute: "width", readable: true, writable: true, types: ['number'], updatesTo: ['area'], dataTypeProposition: 'isNumericData', value: widthValue});
         this.specificProperties.push({attribute: "height", readable: true, writable: true, types: ['number'], updatesTo: ['area'], dataTypeProposition: 'isNumericData', value: heightValue});
         this.specificProperties.push({attribute: "angle", readable: true, writable: true, types: ['number'], updatesTo: [], dataTypeProposition: 'isNumericData', value: angleValue});
@@ -143,10 +143,10 @@ PathMark = fabric.util.createClass(fabric.Path, {
 
         var XYValues = extractXYValues(this, true, options.doNotSimplify);
 
-//        if (LOG) {
+        if (LOG) {
         console.log("XYValues:");
         console.log(XYValues);
-//        }
+        }
 
         var coordinates = createFunctionCoordinatesFromValues(XYValues.xValues, XYValues.yValues);
 
@@ -187,51 +187,51 @@ PathMark = fabric.util.createClass(fabric.Path, {
         }
     },
     scaleCoordiates: function (coordinates, coordinate, max) {
-       
+
         var theMark = this;
-        
+
         return scaleCoordiates(theMark, coordinates, coordinate, max);
-        
+
         /*
-
-        var numbers = new Array();
-        coordinates.forEach(function (value) {
-            numbers.push(value.number);
-        });
-
-        var oldMin = getArrayMin(numbers);
-        var oldMax = getArrayMax(numbers);
-        var newMin = 0;
-
-        theMark.setCoords();
-
-        if (LOG) {
-            console.log("theMark.the_height:");
-            console.log(theMark.the_height);
-        }
-        
-        if (LOG) {
-            console.log("theMark.getScaleY():");
-            console.log(theMark.getScaleY());
-        }
-
-        var newMax = max;
-        if (!newMax) {
-            if (coordinate === 'x') {
-                newMax = theMark.the_width;
-            } else {
-                newMax = theMark.the_height;
-            }
-        }
-
-        if (LOG)
-            console.log("oldMin, oldMax, newMin, newMax");
-        if (LOG)
-            console.log(oldMin, oldMax, newMin, newMax);
-
-        var scaledCoordinates = changeRangeToArray(numbers, oldMin, oldMax, newMin, newMax);
-
-        return scaledCoordinates;*/
+         
+         var numbers = new Array();
+         coordinates.forEach(function (value) {
+         numbers.push(value.number);
+         });
+         
+         var oldMin = getArrayMin(numbers);
+         var oldMax = getArrayMax(numbers);
+         var newMin = 0;
+         
+         theMark.setCoords();
+         
+         if (LOG) {
+         console.log("theMark.the_height:");
+         console.log(theMark.the_height);
+         }
+         
+         if (LOG) {
+         console.log("theMark.getScaleY():");
+         console.log(theMark.getScaleY());
+         }
+         
+         var newMax = max;
+         if (!newMax) {
+         if (coordinate === 'x') {
+         newMax = theMark.the_width;
+         } else {
+         newMax = theMark.the_height;
+         }
+         }
+         
+         if (LOG)
+         console.log("oldMin, oldMax, newMin, newMax");
+         if (LOG)
+         console.log(oldMin, oldMax, newMin, newMax);
+         
+         var scaledCoordinates = changeRangeToArray(numbers, oldMin, oldMax, newMin, newMax);
+         
+         return scaledCoordinates;*/
     },
     setBothCoordinates: function (xCoordinates, yCoordinates, shouldAnimate) {
 
@@ -310,8 +310,8 @@ PathMark = fabric.util.createClass(fabric.Path, {
         var previousLeft = theMark.left;
         var previousTop = theMark.top;
 
-        console.log("theMark.scaledX.length: " + theMark.scaledX.length);
-        console.log("theMark.scaledY.length: " + theMark.scaledY.length);
+//        console.log("theMark.scaledX.length: " + theMark.scaledX.length);
+//        console.log("theMark.scaledY.length: " + theMark.scaledY.length);
 
         var maxPointsToPlot = Math.min(theMark.scaledX.length, theMark.scaledY.length);
 
@@ -325,14 +325,14 @@ PathMark = fabric.util.createClass(fabric.Path, {
             theMark.path.push(["L", theMark.scaledX[i], theMark.scaledY[i]]);
 
 //            if (LOG) {
-            console.log("theMark.path[i]:");
-            console.log(theMark.path[i]);
+//            console.log("theMark.path[i]:");
+//            console.log(theMark.path[i]);
 //            }
         }
 
 //        if (LOG) {
-        console.log("thePath.path:");
-        console.log(theMark.path);
+//            console.log("thePath.path:");
+//            console.log(theMark.path);
 //        }
 
 

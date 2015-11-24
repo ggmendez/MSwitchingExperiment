@@ -961,54 +961,6 @@ var Locator = fabric.util.createClass(fabric.Circle, {
             }
         });
 
-
-
-
-
-        return;
-
-        // TODO: The arrows are not being animated as I don't know at the moment if they are going to be useful or not
-        var xAxisArrow = theLocator.xAxisArrow;
-        xAxisArrow.set({left: this.left, top: this.top});
-        xAxisArrow.setCoords();
-
-        canvas.add(xAxisArrow);
-
-
-
-        xAxisArrow.animate('opacity', 1, {
-            easing: easing,
-            duration: duration,
-        });
-        xAxisArrow.animate('left', theLocator.left + theLocator.maxUntransformedX, {
-            easing: easing,
-            duration: duration,
-        });
-
-
-        var yAxisArrow = theLocator.yAxisArrow;
-        yAxisArrow.set({left: this.left, top: this.top});
-        yAxisArrow.setCoords();
-
-        canvas.add(yAxisArrow);
-
-
-
-        yAxisArrow.animate('opacity', 1, {
-            easing: easing,
-            duration: duration,
-        });
-        yAxisArrow.animate('top', theLocator.top + theLocator.minUntransformedY, {
-            easing: easing,
-            duration: duration,
-            onChange: refreshCanvas ? canvas.renderAll.bind(canvas) : '',
-            onComplete: function () {
-                computeUntransformedProperties(xAxisArrow);
-                computeUntransformedProperties(yAxisArrow);
-                canvas.renderAll();
-            }
-        });
-
     },
     compress: function (refreshCanvas) {
 
