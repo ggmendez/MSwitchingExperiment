@@ -135,9 +135,9 @@ body {
     -ms-font-feature-settings: "calt";
     -o-font-feature-settings: "calt";
     -webkit-font-feature-settings: "calt";
-    font-feature-settings: "calt";
+    font-feature-settings: "calt";   
     
-    touch-action: none;
+    overflow:hidden; //I don't want the scrollbars as they are affecting the behaviour in Firefox
 
 }
 

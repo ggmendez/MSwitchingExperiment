@@ -1,11 +1,11 @@
-<%@page import="loader.OpenCVLoader;"%>
+<%@page import="loader.OpenCVLoader"%>
 
 
 <!DOCTYPE html>
 <html style="overflow-x: no-display;">
     <head>
         <title>Experiment Application</title>
-        <meta charset="UTF8">
+        <meta charset="utf-8">
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
@@ -153,10 +153,6 @@
     <body oncontextmenu="return false;" onresize="adjustCanvasDimensions();" onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
 
 
-
-
-
-
         <!--------------------->
         <!-- HORIZONTAL MENU -->
         <!--------------------->
@@ -167,15 +163,15 @@
             <!--------------->
 
             <li><a href="javascript:void(0);" onclick="onLoad();"><i class="icon-picture fa-2x"></i></a></li>
-            <li> <input type="file" accept=".jpeg, .png, .jpg"  id="imageFileInput" name="someFile" onchange="handleImageFiles(this.files)" style="visibility:hidden;position:absolute;top:-50;left:-50"/></li>
+            <li> <input type="file" accept="image/jpeg,image/png,image/jpg"  id="imageFileInput" name="someFile" onchange="handleImageFiles(this.files)" style="visibility:hidden;position:absolute;top:-50;left:-50"/></li>
 
             <li class="verticalLeftDivider"><a href="javascript:void(0);" onclick="showCameraSignal();"><i id="openCameraButton" class="fa fa-camera fa-2x"></i></a></li>
 
             <li class="verticalLeftDivider"><a href="javascript:readSVGFileAsData();"><i class="fa fa-file-code-o fa-2x"></i></a></li>
-            <li> <input type="file" accept=".svg" id="dataSVGFileInput" name="someSVGDataFile" onchange="handleSVGFiles(this.files, false)" style="visibility:hidden;position:absolute;top:-50;left:-50"/></li>
+            <li> <input type="file" accept="image/svg+xml" id="dataSVGFileInput" name="someSVGDataFile" onchange="handleSVGFiles(this.files, false)" style="visibility:hidden;position:absolute;top:-50;left:-50"/></li>
 
             <li class="verticalLeftDivider"><a href="javascript:loadDatafile();"><i class="icon-table fa-2x"></i></a></li>
-            <li> <input type="file" accept=".csv, .json" id="dataimageFileInput" name="someDatafile" onchange="handleDatafiles(this.files)" style="visibility:hidden;position:absolute;top:-50;left:-50"/></li>
+            <li> <input type="file" accept="text/csv, text/json" id="dataimageFileInput" name="someDatafile" onchange="handleDatafiles(this.files)" style="visibility:hidden;position:absolute;top:-50;left:-50"/></li>
 
             <li class="verticalLeftDivider verticalRightDivider verticalRightDivider2"><a href="javascript:void(0);" onclick="showWebPage();"><i id="openWebPageButton" class="fa fa-globe fa-2x"></i></a></li>
 
@@ -188,68 +184,25 @@
             <!------------------------------>
             <!-- DRAGGING & PANNING MODES -->
             <!------------------------------>
+            
+            <li id="panningModeButton" onmousedown='modeButtonClicked(this);' draggable="false" class="mode"><a><i class="fa fa-hand-paper-o fa-2x"> </i> </a></li>
+            <li class="verticalLeftDivider" id="disconnectingModeButton" onmousedown='modeButtonClicked(this);' draggable="false" class="mode"><a><i class="fa fa-unlink fa-2x"> </i> </a></li>
 
-            <!--<li id="panningModeButton" unselectable='on' onselectstart='return false;' onmousedown='modeButtonClicked(this);' draggable="false" class="mode"><a><i class="fa fa-hand-paper-o fa-2x"> </i> </a></li>-->
-            <li id="panningModeButton" unselectable='on' onselectstart='return false;' onmousedown='modeButtonClicked(this);' draggable="false" class="mode"><a><i class="fa fa-hand-paper-o fa-2x"> </i> </a></li>
-            <li class="verticalLeftDivider" id="disconnectingModeButton" unselectable='on' onselectstart='return false;' onmousedown='modeButtonClicked(this);' draggable="false" class="mode"><a><i class="fa fa-unlink fa-2x"> </i> </a></li>
-
-            <li class="verticalLeftDivider verticalRightDivider verticalRightDivider2" id="squaredSelectionButton" unselectable='on' onselectstart='return false;' onmousedown='modeButtonClicked(this);' draggable="false" class="mode"><a><i class="fa fa-object-group fa-2x"> </i> </a></li>
-            <!--<li class="verticalLeftDivider verticalRightDivider verticalRightDivider2" id="freeSelectionButton" unselectable='on' onselectstart='return false;' onmousedown='modeButtonClicked(this);' draggable="false" class="mode"><a><i class="fa fa-circle-o-notch fa-2x"> </i> </a></li>-->
-
-
-            <!--<li class=""><a id="panningModeActivatorLink" href="javascript:void(0);" onclick="activatePanningMode();"><i class="icon-hand-up fa-2x"></i></a></li>-->
-            <!--<li class="verticalLeftDivider verticalRightDivider verticalRightDivider2"><a id="panningModeDeActivatorLink" href="javascript:void(0);" onclick="deActivatePanningMode();"><i class="fa fa-unlink fa-2x"></i></a></li>-->            
-
+            <li class="verticalLeftDivider verticalRightDivider verticalRightDivider2" id="squaredSelectionButton" onmousedown='modeButtonClicked(this);' draggable="false" class="mode"><a><i class="fa fa-object-group fa-2x"> </i> </a></li>
 
             <!--------------------------->
             <!-- CONNECTORS VISIBILITY -->
             <!--------------------------->
-            <li class="verticalLeftDivider verticalRightDivider verticalRightDivider2" id="disconnectingModeButton" unselectable='on' onselectstart='return false;' draggable="false" class="mode"><a id="connectorsVisibilityButton" onmousedown="toggleConnectorsVisibility(this);"><i class="fa fa-eye fa-2x"></i></a></li>            
-            <!--            <li><a id="toggleConnectorsVisibilityActivatorLink" href="javascript:toggleConnectorsVisibility();"><i id="checkConnectorsVisibility" class="icon-check"></i> Show connectors</a></li>-->
-
-
-
-
-            <!--------------------->
-            <!-- COLOR REGIONS EXTRACTORS -->
-            <!--------------------->
-            <!--            <li><a id="scribbleDectivator" href="javascript:void(0);" onclick="deactivateScribbleMode();"><i class="fa fa-magic fa-2x"></i></a></li>
-                        <li class="verticalLeftDivider"><a id="scribbleActivator1" href="javascript:void(0);" onclick="activateScribbleMode(false);"><i class="fa fa-pencil fa-2x"></i></a></li>
-                        <li class="verticalLeftDivider verticalRightDivider2"><a id="scribbleActivator2" href="javascript:void(0);" onclick="activateScribbleMode(true);"><i class="fa fa-paint-brush fa-2x"></i></a></li>-->
-
-            <!--------------------->
-            <!-- TEXT EXTRACTORS -->
-            <!--------------------->
-            <!--            <li class=""><a id="lineTextualVixor" href="javascript:void(0);" onclick="drawTextualVixor('lineExtractor', this);"><i class="icon-strikethrough fa-2x"></i></a></li>
-                        <li class="verticalLeftDivider verticalRightDivider verticalRightDivider2"><a id="blockTextualVixor" href="javascript:void(0);" onclick="drawTextualVixor('blockExtractor', this);"><i class="fa fa-stop fa-2x"></i></a></li>-->
-
-            <!-------------------->
-            <!-- COLOR SAMPLERS -->
-            <!-------------------->
-            <!--            <li class=""> <a id="samplerButton" href="javascript:void(0);" onclick="samplerButtonClicked();"><i class="collections-freeSampler" style="font-size: 26px;"></i> </a></li>
-                        <li class="verticalLeftDivider verticalRightDivider verticalRightDivider2"><a id="samplerLineButton" href="javascript:void(0);" onclick="samplerLineButtonClicked();"><i class="collections-straightSampler" style="font-size: 26px;"></i> </a></li>-->
-
-
+            <li class="verticalLeftDivider verticalRightDivider verticalRightDivider2" id="disconnectingModeButton" draggable="false" class="mode"><a id="connectorsVisibilityButton" onmousedown="toggleConnectorsVisibility(this);"><i class="fa fa-eye fa-2x"></i></a></li>            
 
             <!--------------------------->
             <!-- OPERATIONS ON OBJECTS -->
             <!--------------------------->
 
-            <li class="mode verticalLeftDivider" unselectable='on' onselectstart='return false;' onmousedown='duplicateObject();' draggable="false"><a><i class="fa fa-clone fa-flip-horizontal fa-2x clicMenu"> </i> </a></li>
-
-
-            <li class="mode verticalLeftDivider" unselectable='on' onselectstart='return false;' onmousedown='expandMarks();' draggable="false"><a><i class="fa fa-angle-double-down fa-2x clicMenu"> </i> </a></li>
-            <li class="mode verticalLeftDivider" unselectable='on' onselectstart='return false;' onmousedown='compressMarks();' draggable="false"><a><i class="fa fa-angle-double-up fa-2x clicMenu"> </i> </a></li>
-
-
-
-
-            <li class="verticalLeftDivider verticalRightDivider verticalRightDivider2" unselectable='on' onselectstart='return false;' onmousedown='deleteObject();' draggable="false" class="mode"><a><i class="fa fa-remove fa-2x"> </i> </a></li>
-
-
-
-
-
+            <li class="mode verticalLeftDivider" onmousedown='duplicateObject();' draggable="false"><a><i class="fa fa-clone fa-flip-horizontal fa-2x clicMenu"> </i> </a></li>
+            <li class="mode verticalLeftDivider" onmousedown='expandMarks();' draggable="false"><a><i class="fa fa-angle-double-down fa-2x clicMenu"> </i> </a></li>
+            <li class="mode verticalLeftDivider" onmousedown='compressMarks();' draggable="false"><a><i class="fa fa-angle-double-up fa-2x clicMenu"> </i> </a></li>
+            <li class="verticalLeftDivider verticalRightDivider verticalRightDivider2" onmousedown='deleteObject();' draggable="false" class="mode"><a><i class="fa fa-remove fa-2x"> </i> </a></li>
             <li class="verticalLeftDivider verticalRightDivider verticalRightDivider2"><a href="javascript:void(0);" onclick="deleteAllObjects();"><i class="fa fa-trash-o fa-2x"></i></a></li>
 
             <!--------------->
@@ -261,14 +214,8 @@
                 </a>
                 <ul id="fileMenuUL">
                     <li><a href="javascript:void(0);" onclick="saveProject();"><i id="saveProjectElement" class="fa-save icon-large"></i> Save project</a></li>
-
                     <li><a href="javascript:loadiVoLVRProject();"><i class="fa-folder-open-o icon-large"></i> Open project</a></li>
-
-
-
-
-
-                    <li> <input type="file" accept=".xml" id="dataprojectFileInput" name="someProjectfile" onchange="handleDatafiles(this.files)" style="visibility:hidden;position:absolute;top:-50;left:-50"/></li>                    
+                    <li> <input type="file" accept="application/xml" id="dataprojectFileInput" name="someProjectfile" onchange="handleDatafiles(this.files)" style="visibility:hidden;position:absolute;top:-50;left:-50"/></li>                    
                     <li><a href="javascript:void(0);"><i class="fa-lightbulb-o icon-large"></i> Sample projects</a>
                         <ul>
                             <li><a href="javascript:void(0);" onclick="openProjectFile('sampleProjects/Sample1.xml');"> Sample 1</a></li>
@@ -287,93 +234,34 @@
                 </ul>
             </li>
 
-            <!--------------->
-            <!-- MORE MENU -->
-            <!--            -----------
-            <li id="configMenu" onclick="showMenu(this);" class="verticalRightDivider verticalRightDivider2">
-                <a>
-                    <i class="fa fa-plus fa-2x"></i>
+            <li class="verticalLeftDivider2" style="float: right;">
+                <a id="toggleAdditionalToolsVisibility" href="javascript:void(0);" onclick="togglePanelVisibility('#rightPanel');">
+                    <i class="fa fa-chevron-right fa-2x"></i>
                 </a>
-                <ul id="configMenuUL">
-                    
-
-                    <li><a href="javascript:void(0);" onclick="deleteAllObjects();"><i class="fa-trash-o icon-large"></i> Clear canvas</a></li>
-                </ul>
-            </li>-->
-
-
-            <!-- RIGHT PANEL HANDLER -->
-
-
-
-            <li class="verticalLeftDivider2" style="float: right;"><a id="toggleAdditionalToolsVisibility" href="javascript:void(0);" onclick="togglePanelVisibility('#rightPanel');"><i class="fa fa-chevron-right fa-2x"></i></a></li>
-
+            </li>
 
         </ul>
 
-        <!--<div class="clear"></div>-->
-
         <div class="grid">
 
-            <!--<div class="col_12" id="mainContainer">-->
             <div style="width: 100%" id="mainContainer">
 
                 <div class="rightPanel nonSelection" id="rightPanel" draggable="false">
-
-
-
-
-                    <!---------------->
+                    
                     <!-- EXTRACTORS -->
-                    <!---------------->
-
                     <h6 id="extractorsListH6" onclick="togglePanelVisibility('#extractorsList', false);" style="cursor: pointer;" class="nonSelection sectionHeader"><span class="fa fa-angle-down" style="margin-right: 5px;"></span>Extractors</h6>
                     <ul id="extractorsList" class="horizontalButtomsRow">
-
-
-
-                        <!--<li style="width: 100%; height: 15px; padding: 0px; margin: 0px; margin-bottom: 0px; margin-top: 0px; font-size: 10px; color: #777;">COLOURED REGIONS</li>-->
-
-                        <li id="groupColorRegionButton" unselectable='on' onselectstart='return false;' onmousedown='modeButtonClicked(this);' draggable="false" class="boxDivider mode" style="margin-right: 8px; margin-bottom: 6px;"><a><i class="fa fa-paint-brush" style="font-size: 25px;"> </i> </a></li>
-
-                        <li id="multipleColorRegionsButton" unselectable='on' onselectstart='return false;' onmousedown='modeButtonClicked(this);' draggable="false" class="boxDivider mode" style="margin-right: 8px; margin-bottom: 6px;"><a><i class="fa fa-pencil" style="font-size: 25px;"> </i> </a></li>
-
-                        <li id="floodFillButton" unselectable='on' onselectstart='return false;' onmousedown='modeButtonClicked(this);' draggable="false" class="boxDivider mode" style="margin-right: 8px; margin-bottom: 6px;"><a><i class="fa fa-magic" style="font-size: 25px;"> </i> </a></li>
-
-
-
-                        <!--<hr style="border-top: 1px solid #bbb; margin-top: 3px;" />-->
-
-                        <!--<li style="width: 100%; height: 15px; padding: 0px; margin-top: 5px; margin-bottom: 0px; margin-top: 0px; font-size: 10px; color: #777;">COLOUR SAMPLERS</li>-->
-
-                        <li id="samplerLineButton" onclick="modeButtonClicked(this);" unselectable='on' onselectstart='return false;' draggable="false" class="boxDivider mode" style="width: 44%; margin-right: 8px; margin-bottom: 6px;"><a><i class="collections-straightSampler" style="font-size: 22px;"> </i> </a></li>
-
-                        <li id="samplerButton" onclick="modeButtonClicked(this);" unselectable='on' onselectstart='return false;' draggable="false" class="boxDivider mode" style="width: 44%; margin-right: 8px; margin-bottom: 6px;"><a><i class="collections-freeSampler" style="font-size: 22px;"> </i> </a></li>
-
-
-                        <!--<hr style="border-top: 1px solid #bbb; margin-top: 3px;" />-->
-
-
-                        <!--<li style="width: 100%; height: 15px; padding: 0px; margin-top: 5px; margin-bottom: 0px; margin-top: 0px; font-size: 10px; color: #777;">TEXT EXTRACTORS</li>-->
-
-                        <li id="lineTextExtractorButton" unselectable='on' onselectstart='return false;' onmousedown="modeButtonClicked(this);" draggable="false" class="boxDivider mode" style="width: 44%; margin-right: 8px;"><a><i class="icon-strikethrough icon-large" style="font-size: 19px;"> </i> </a></li>
-
-                        <li id="blockTextExtractorButton" unselectable='on' onselectstart='return false;' onmousedown="modeButtonClicked(this);" draggable="false" class="boxDivider mode" style="width: 44%; margin-right: 8px;"><a><i class="fa fa-stop icon-large" style="font-size: 19.5px;"> </i> </a></li>
-
-                        <!--<li id="lineTextualVixor" onclick="drawTextualVixor('lineExtractlineTextualVixoror', this);" unselectable='on' onselectstart='return false;' draggable="false" class="boxDivider clicElement"><a><i class="icon-strikethrough icon-large"> </i> </a></li>-->
-                        <!--<li id="blockTextualVixor" onclick="drawTextualVixor('blockExtractor', this);" unselectable='on' onselectstart='return false;' draggable="false" class="boxDivider mode"><a><i class="fa fa-stop icon-large"> </i> </a></li>-->
-
-
-
-                        <!--                        <li id="samplerButton" onclick="//samplerButtonClicked();" unselectable='on' onselectstart='return false;' draggable="false" class="boxDivider clicElement"><a><i class="collections-freeSampler" style="font-size: 20px;"> </i> </a></li>
-                                                <li id="samplerLineButton" onclick="//samplerLineButtonClicked();" unselectable='on' onselectstart='return false;' draggable="false" class="boxDivider clicElement"><a><i class="collections-straightSampler" style="font-size: 20px;"> </i> </a></li>-->
-
+                        <li id="groupColorRegionButton" onmousedown='modeButtonClicked(this);' draggable="false" class="boxDivider mode" style="margin-right: 8px; margin-bottom: 6px;"><a><i class="fa fa-paint-brush" style="font-size: 25px;"> </i> </a></li>
+                        <li id="multipleColorRegionsButton" onmousedown='modeButtonClicked(this);' draggable="false" class="boxDivider mode" style="margin-right: 8px; margin-bottom: 6px;"><a><i class="fa fa-pencil" style="font-size: 25px;"> </i> </a></li>
+                        <li id="floodFillButton" onmousedown='modeButtonClicked(this);' draggable="false" class="boxDivider mode" style="margin-right: 8px; margin-bottom: 6px;"><a><i class="fa fa-magic" style="font-size: 25px;"> </i> </a></li>
+                        <li id="samplerLineButton" onclick="modeButtonClicked(this);" draggable="false" class="boxDivider mode" style="width: 44%; margin-right: 8px; margin-bottom: 6px;"><a><i class="collections-straightSampler" style="font-size: 22px;"> </i> </a></li>
+                        <li id="samplerButton" onclick="modeButtonClicked(this);" draggable="false" class="boxDivider mode" style="width: 44%; margin-right: 8px; margin-bottom: 6px;"><a><i class="collections-freeSampler" style="font-size: 22px;"> </i> </a></li>
+                        <li id="lineTextExtractorButton" onmousedown="modeButtonClicked(this);" draggable="false" class="boxDivider mode" style="width: 44%; margin-right: 8px;"><a><i class="icon-strikethrough icon-large" style="font-size: 19px;"> </i> </a></li>
+                        <li id="blockTextExtractorButton" onmousedown="modeButtonClicked(this);" draggable="false" class="boxDivider mode" style="width: 44%; margin-right: 8px;"><a><i class="fa fa-stop icon-large" style="font-size: 19.5px;"> </i> </a></li>
                     </ul>
                     <hr />
 
-                    <!----------->
                     <!-- MARKS -->
-                    <!----------->
                     <h6 id="marksListH6" onclick="togglePanelVisibility('#marksList', false);" style="cursor: pointer;" class="nonSelection sectionHeader"><span class="fa fa-angle-down" style="margin-right: 5px;"></span>Marks</h6>
                     <ul id="marksList" class="horizontalButtomsRow">
                         <li id="circlePrototype" draggable="true" class="dragElement circularBorder" style="margin-right: 15px; margin-bottom: 3px;"><a><i class="mark-circle" style="font-size: 28px;"></i></a></li>
@@ -384,24 +272,11 @@
                         <li id="fatFontPrototype" draggable="true" class="dragElement circularBorder" style="margin-right: 12px; margin-bottom: 3px;"><a><i class="mark-fatfont" style="font-size: 28px;"></i></a></li>
                         <li id="ellipsePrototype" draggable="true" class="dragElement circularBorder" style="margin-right: 12px; margin-bottom: 3px;"><a><i class="mark-ellipse" style="font-size: 28px;"></i></a></li>
 
-                        <li style="visibility:hidden;position:absolute;top:0;left:0"> <input type="file" accept=".svg" id="svgimageFileInput" name="someSVGFile" onchange="handleSVGFiles(this.files, true)"/></li>
+                        <li style="visibility:hidden;position:absolute;top:0;left:0"> <input type="file" accept="image/svg+xml" id="svgimageFileInput" name="someSVGFile" onchange="handleSVGFiles(this.files, true)"/></li>
                         <li id="filePrototype" draggable="false" class="dragElement boxDivider" style="margin-right: 6px; margin-bottom: 0px;"><a onclick="loadSVGFile();"><i class="mark-svg"></i></a></li>                        
-                        <li id="drawFilledMark" onclick="modeButtonClicked(this);" unselectable='on' onselectstart='return false;' draggable="false" class="boxDivider mode" style="margin-right: 5px; margin-bottom: 0px;"><a><i class="mark-filled"> </i> </a></li>
-                        <li id="drawPathMark" onclick="modeButtonClicked(this);" unselectable='on' onselectstart='return false;' draggable="false" class="boxDivider mode" style="margin-right: 5px; margin-bottom: 0px;"><a><i class="mark-path"> </i> </a></li>
+                        <li id="drawFilledMark" onclick="modeButtonClicked(this);" draggable="false" class="boxDivider mode" style="margin-right: 5px; margin-bottom: 0px;"><a><i class="mark-filled"> </i> </a></li>
+                        <li id="drawPathMark" onclick="modeButtonClicked(this);" draggable="false" class="boxDivider mode" style="margin-right: 5px; margin-bottom: 0px;"><a><i class="mark-path"> </i> </a></li>
 
-
-                        <!--                        <li id="circlePrototype" draggable="true" class="dragElement boxDivider"><a><i class="mark-circle"></i></a></li>
-                                                <li id="rectPrototype" draggable="true" class="dragElement boxDivider"><a><i class="mark-rectangle"></i></a></li>
-                                                <li id="squarePrototype" draggable="true" class="dragElement boxDivider"><a><i class="mark-square"></i></a></li>
-                                                <li id="pathMarkPrototype" draggable="true" class="dragElement boxDivider"><a><i class="mark-pathMark"></i></a></li>
-                                                <li id="fatFontPrototype" draggable="true" class="dragElement boxDivider"><a><i class="mark-fatfont"></i></a></li>
-                                                <li id="ellipsePrototype" draggable="true" class="dragElement boxDivider"><a><i class="mark-ellipse"></i></a></li>
-                                                <li style="visibility:hidden;position:absolute;top:0;left:0"> <input type="file" accept=".svg" id="svgimageFileInput" name="someSVGFile" onchange="handleSVGFiles(this.files, true)"/></li>
-                                                <li id="filePrototype" draggable="false" class="dragElement boxDivider"><a onclick="loadSVGFile();"><i class="mark-svg"></i></a></li>                        
-                                                <li id="drawFilledMark" onclick="modeButtonClicked(this);" unselectable='on' onselectstart='return false;' draggable="false" class="boxDivider clicElement"><a><i class="mark-filled"> </i> </a></li>
-                                                <li id="drawPathMark" onclick="modeButtonClicked(this);" unselectable='on' onselectstart='return false;' draggable="false" class="boxDivider clicElement"><a><i class="mark-path"> </i> </a></li>
-                                                                        <li id="drawFilledMark" onclick="drawFilledMarkButtonClicked();" unselectable='on' onselectstart='return false;' draggable="false" class="boxDivider clicElement"><a><i class="mark-filled"> </i> </a></li>
-                                                                        <li id="drawPathMark" onclick="drawPathMarkButtonClicked();" unselectable='on' onselectstart='return false;' draggable="false" class="boxDivider clicElement"><a><i class="mark-path"> </i> </a></li>-->
                     </ul>
                     <hr />
 
@@ -413,23 +288,10 @@
                         <li id="isStringData" draggable="true" class="dragElement circularBorder" style="margin-right: 1px; margin-bottom: 5px;"><a><i class="value-string" style="font-size: 25px;"></i></a></li>
                         <li id="isNumericData" draggable="true" class="dragElement circularBorder" style="margin-right: 1px; margin-bottom: 5px;"><a><i class="value-number" style="font-size: 25px;"></i></a></li>
 
-                        <li id="rangeGenerator" draggable="true" class="dragElement circularBorder" style="margin-right: 10px; margin-bottom: 0px;"><a style="padding-top: 6px; padding-left: 10px; padding-bottom: 0px;"><i class="range-generator" style="font-size: 24px;"></i></a></li> 
-
-                        <!--                        <li id="dateGenerator" draggable="true" class="dragElement circularBorder" style="margin-right: 10px; margin-bottom: 0px;"><a style="padding-top: 6px; padding-left: 10px; padding-bottom: 0px;"><i class="fa fa-adn" style="font-size: 24px;"></i></a></li> 
-                                                <li id="numberGenerator" draggable="true" class="dragElement circularBorder" style="margin-right: 10px; margin-bottom: 0px;"><a style="padding-top: 6px; padding-left: 10px; padding-bottom: 0px;"><i class="generator-number" style="font-size: 24px;"></i></a></li> -->
+                        <li id="rangeGenerator" draggable="true" class="dragElement circularBorder" style="margin-right: 10px; margin-bottom: 0px;"><a style="padding-top: 6px; padding-left: 10px; padding-bottom: 0px;"><i class="range-generator" style="font-size: 24px;"></i></a></li>
 
                         <li id="isDurationData" draggable="true" class="dragElement circularBorder" style="margin-right: 1px; margin-bottom: 0px;"><a><i class="value-duration" style="font-size: 25px;"> </i> </a></li>
-                        <li id="isDateAndTimeData" draggable="true" class="dragElement circularBorder" style="margin-right: 1px; margin-bottom: 0px;"><a><i class="value-dateAndTime" style="font-size: 25px;"></i></i></a></li>
-
-
-                        <!--                        <li id="isColorData" draggable="true" class="dragElement circularBorder" style="margin-right: 10px; margin-bottom: 5px;"><a><i class="value-color" style="font-size: 28px;"></i></a></li>
-                                                <li id="isStringData" draggable="true" class="dragElement circularBorder" style="margin-right: 12px; margin-bottom: 5px;"><a><i class="value-string" style="font-size: 28px;"></i></a></li>
-                                                <li id="isNumericData" draggable="true" class="dragElement circularBorder" style="margin-right: 12px; margin-bottom: 5px;"><a><i class="value-number" style="font-size: 28px;"></i></a></li>
-                                                <li id="isShapeData" draggable="true" class="dragElement circularBorder" style="margin-right: 10px; margin-bottom: 5px;"><a><i class="value-shape" style="font-size: 28px;"> </i> </a></li>
-                                                <li id="isDurationData" draggable="true" class="dragElement circularBorder" style="margin-right: 12px; margin-bottom: 5px;"><a><i class="value-duration" style="font-size: 28px;"> </i> </a></li>
-                                                <li id="isDateAndTimeData" draggable="true" class="dragElement circularBorder" style="margin-right: 12px; margin-bottom: 5px;"><a><i class="value-dateAndTime" style="font-size: 28px;"></i></i></a></li>
-                                                <li id="numberGenerator" draggable="true" class="dragElement circularBorder"><a><i class="generator-number"></i></a></li> 
-                        -->
+                        <li id="isDateAndTimeData" draggable="true" class="dragElement circularBorder" style="margin-right: 1px; margin-bottom: 0px;"><a><i class="value-dateAndTime" style="font-size: 25px;"></i></a></li>
                     </ul>
                     <hr />
 
@@ -447,27 +309,9 @@
                     <h6 id="draggableWidgetsListH6" onclick="togglePanelVisibility('#draggableWidgetsList', false);" style="cursor: pointer;" class="nonSelection sectionHeader"><span class="fa fa-angle-down" style="margin-right: 5px;"></span>Collections</h6>
                     <ul id="draggableWidgetsList" class="horizontalButtomsRow">
 
-                        <!--                        <li id="collectionGetterWidget" draggable="true" class="dragElement boxDivider" style="margin-right: 5px;"><a><i class="fa fa-angellist"></i></a></li>
-                                                                        <li id="collectionAttributeSelectorWidget" draggable="true" class="dragElement boxDivider" style="margin-right: 5px;"><a><i class="fa fa-archive"></i></a></li>-->
-
-                        <!--                        <li id="collectionGetterWidget" draggable="true" class="dragElement boxDivider" style="margin-right: 5px;"><a><i class="fa fa-angellist"></i></a></li>
-                                                <li id="collectionAttributeSelectorWidget" draggable="true" class="dragElement boxDivider" style="margin-right: 5px;"><a><i class="fa fa-archive"></i></a></li>-->
-
-                        <!--                        <li id="mapperWidget" draggable="true" class="dragElement boxDivider" style="margin-right: 5px;"><a><i class="collections-mapper"></i></a></li>
-                                                <li id="verticalCollection" draggable="true" class="dragElement boxDivider" style="margin-right: 3px;"><a><i class="collections-collection" ></i></a></li>
-                                                <li id="numberGenerator" draggable="true" class="dragElement boxDivider" style="margin-right: 5px;"><a><i class="generator-number"></i></a></li> 
-                                                <li id="collectionGenerator" draggable="true" class="dragElement boxDivider" style="margin-right: 3px;"><a><i class="collections-generator"></i></a></li>-->
-
-
                         <li id="collectionGenerator" draggable="true" class="dragElement circularBorder" style="margin-right: 0px; margin-bottom: 0px;"><a><i class="collections-generator"></i></a></li>
                         <li id="mapperWidget" draggable="true" class="dragElement circularBorder" style="margin-right: 0px; margin-bottom: 0px;"><a><i class="collections-mapper"></i></a></li>
                         <li id="verticalCollection" draggable="true" class="dragElement circularBorder" style="margin-right: 0px; margin-bottom: 0px;"><a><i class="collections-collection" ></i></a></li>
-
-
-
-
-
-
 
                     </ul>
                     <hr />
@@ -475,16 +319,6 @@
                     <!-- FUNCTIONS -->
                     <h6 id="functionsListH6" onclick="togglePanelVisibility('#functionsList', false);" style="cursor: pointer;" class="nonSelection sectionHeader"><span class="fa fa-angle-down" style="margin-right: 5px;"></span>Functions</h6>
                     <ul id='functionsList' class="horizontalButtomsRow">
-
-                        <!--                        <li id="xFunction" draggable="true" class="dragElement boxDivider"><a><i class="function-x"></i></a></li>
-                                                <li id="emptyFunction" draggable="true" class="dragElement boxDivider"><a><i class="function-empty"></i></a></li>
-                                                <li id="locatorWidget" draggable="true" class="dragElement boxDivider"><a><i class="collections-locator" style="font-size: 25px;"></i></a></li>
-                                                <li id="cosXFunction" draggable="true" class="dragElement boxDivider"><a><i class="function-cosx"></i></a></li>
-                                                <li id="sinXFunction" draggable="true" class="dragElement boxDivider"><a><i class="function-sinx"></i></a></li>
-                                                <li id="x2Function" draggable="true" class="dragElement boxDivider"><a><i class="function-x2"></i></a></li>
-                                                <li id="logXFunction" draggable="true" class="dragElement boxDivider"><a><i class="function-logx"></i></a></li>
-                                                <li id="sqrtXFunction" draggable="true" class="dragElement boxDivider"><a><i class="function-sqrtx"></i></a></li>
-                                                <li id="x3Function" draggable="true" class="dragElement boxDivider"><a><i class="function-x3"></i></a></li>-->
 
                         <li id="x2Function" draggable="true" class="dragElement circularBorder" style="margin-right: 3px; margin-bottom: 6px;"><a><i class="function-x2"></i></a></li>
                         <li id="xFunction" draggable="true" class="dragElement circularBorder" style="margin-right: 0px; margin-bottom: 6px;"><a><i class="function-x"></i></a></li>
@@ -496,12 +330,9 @@
                         <li id="sinXFunction" draggable="true" class="dragElement circularBorder" style="margin-right: 0px; margin-bottom: 6px;"><a><i class="function-sinx"></i></a></li>
                         <li id="x3Function" draggable="true" class="dragElement circularBorder" style="margin-right: 0px; margin-bottom: 6px;"><a><i class="function-x3"></i></a></li>
 
-                        <li id="enterFunction" onclick="enterFunctionButtonClicked();" unselectable='on' onselectstart='return false;' draggable="false" class="boxDivider" style="width: 30%;"><a><i class="fa-superscript icon-large" style="font-size: 22.5px;"> </i> </a></li>
-                        <li id="drawFunction" onclick="modeButtonClicked(this);" unselectable='on' onselectstart='return false;' draggable="false" class="boxDivider mode" style="width: 30%; margin-right: 10px;"><a><i class="function-draw"> </i> </a></li>
+                        <li id="enterFunction" onclick="enterFunctionButtonClicked();" draggable="false" class="boxDivider" style="width: 30%;"><a><i class="fa-superscript icon-large" style="font-size: 22.5px;"> </i> </a></li>
+                        <li id="drawFunction" onclick="modeButtonClicked(this);" draggable="false" class="boxDivider mode" style="width: 30%; margin-right: 10px;"><a><i class="function-draw"> </i> </a></li>
                         <li id="sqrtXFunction" draggable="true" class="dragElement circularBorder" style="margin-right: 10px;"><a><i class="function-sqrtx"></i></a></li>
-
-                        <!--<li id="drawFunction" onclick="drawFunctionButtonClicked();" unselectable='on' onselectstart='return false;' draggable="false" class="boxDivider clicElement"><a><i class="function-draw"> </i> </a></li>-->
-
 
                     </ul>
 
@@ -516,7 +347,6 @@
             </div>
 
             <object id="wtPlugin" type="application/x-wacomtabletplugin" WIDTH=1 HEIGHT=1 style="position:absolute; left:100px; top:100px">
-                <!-- <param name="onload" value="pluginLoaded" /> -->
             </object>
 
         </div><!-- END GRID -->
@@ -538,9 +368,6 @@
 
             // create a wrapper around native canvas element (with id="theCanvas")            
             var canvas = new fabric.Canvas('theCanvas', {backgroundColor: "#ffffff", renderOnAddRemove: false});
-
-
-
 
             var width = $('#mainContainer').width();
             var height = $(document).height() - $('#theMenu').height() - 5;
@@ -761,6 +588,7 @@
 
 
             canvas.allowTouchScrolling = false;
+            
             var lastCopiedObject = null;
             bindCanvasDefaultEvents();
 
